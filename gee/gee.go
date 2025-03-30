@@ -35,6 +35,12 @@ func New() *Engine {
 	return engine
 }
 
+func Default() *Engine {
+	engine := New()
+	engine.Use(Logger(), Recovery())
+	return engine
+}
+
 func (group *RouterGroup) Group(prefix string) *RouterGroup {
 	engine := group.engine
 	newGroup := &RouterGroup{
@@ -91,6 +97,7 @@ func (engine *Engine) SetFuncMap(funcMap template.FuncMap) {
 	engine.funcMap = funcMap
 }
 
+// TODO:动态渲染前端文件
 func (engine *Engine) LoadHTMLGlob(pattern string) {
 	engine.htmlTemplates = template.Must(template.New("").Funcs(engine.funcMap).ParseGlob(pattern))
 }
