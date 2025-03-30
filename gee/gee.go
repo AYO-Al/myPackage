@@ -8,6 +8,23 @@ import (
 	"strings"
 )
 
+const (
+	debugCode = iota
+	releaseCode
+	testCode
+)
+
+const (
+	// DebugMode indicates gin mode is debug.
+	DebugMode = "debug"
+	// ReleaseMode indicates gin mode is release.
+	ReleaseMode = "release"
+	// TestMode indicates gin mode is test.
+	TestMode = "test"
+)
+
+var ginMode = debugCode
+
 // 定义请求处理程序
 type HandlerFunc func(*Context)
 
@@ -17,14 +34,33 @@ type Engine struct {
 	router *router
 	groups []*RouterGroup // 所有分组
 
+	// HTML模板
 	htmlTemplates *template.Template
 	funcMap       template.FuncMap
+	parent        string
 }
 
 type RouterGroup struct {
 	prefix      string
 	middlewares []HandlerFunc
 	engine      *Engine
+}
+
+func IsDebugging() bool {
+	return ginMode == debugCode
+}
+
+func SetMode(value string) {
+	switch value {
+	case "":
+		ginMode = debugCode
+	case DebugMode:
+		ginMode = debugCode
+	case ReleaseMode:
+		ginMode = releaseCode
+	case TestMode:
+		ginMode = testCode
+	}
 }
 
 // 构造gee.Engine
@@ -100,6 +136,7 @@ func (engine *Engine) SetFuncMap(funcMap template.FuncMap) {
 // TODO:动态渲染前端文件
 func (engine *Engine) LoadHTMLGlob(pattern string) {
 	engine.htmlTemplates = template.Must(template.New("").Funcs(engine.funcMap).ParseGlob(pattern))
+	engine.parent = pattern
 }
 
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -113,5 +150,9 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	c := newContext(w, r)
 	c.engine = engine
 	c.handlers = middlewares
+	if IsDebugging() && engine.parent != "" {
+		engine.LoadHTMLGlob(engine.parent)
+	}
+
 	engine.router.handle(c)
 }
