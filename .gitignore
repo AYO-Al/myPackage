@@ -1,0 +1,9 @@
+.*
+
+/go.mod
+main.go
+gee/static/
+gee/templates/
+!gee/*.go
+!.gitignore
+!.md
