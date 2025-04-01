@@ -83,10 +83,10 @@ func (c *Context) JSON(code int, obj interface{}) {
 	}
 }
 
-func (c *Context) Data(code int, data []byte) {
+func (c *Context) Data(code int, data string) {
 	// 如果不设置SetHeader，会根据调用的Write内容自动设置Content-Type
 	c.Status(code)
-	c.Writer.Write(data)
+	c.Writer.Write([]byte(data))
 }
 
 func (c *Context) HTML(code int, name string, data interface{}) {
