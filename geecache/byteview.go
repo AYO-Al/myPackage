@@ -4,11 +4,11 @@ type ByteView struct {
 	bytes []byte
 }
 
-func (b *ByteView) Len() int {
+func (b ByteView) Len() int {
 	return len(b.bytes)
 }
 
-func (b *ByteView) ByteSlice() []byte {
+func (b ByteView) ByteSlice() []byte {
 	return cloneBytes(b.bytes)
 }
 
@@ -18,6 +18,6 @@ func cloneBytes(b []byte) []byte {
 	return c
 }
 
-func (b *ByteView) String() string {
+func (b ByteView) String() string {
 	return string(b.bytes)
 }
