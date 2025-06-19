@@ -20,7 +20,7 @@ func (c *cache) add(key string, value lru.Value) {
 	defer c.mu.Unlock()
 
 	if c.lru == nil {
-		lru.New(c.cacheBytes, nil)
+		c.lru = lru.New(c.cacheBytes, nil)
 	}
 	c.lru.Add(key, value)
 }
