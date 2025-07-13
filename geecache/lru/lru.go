@@ -11,7 +11,7 @@ type Cache struct {
 	nBytes    int64                         // 已使用的长度
 	ll        *list.List                    // 双向链表
 	cache     map[string]*list.Element      // 缓存字典
-	OnEvicted func(key string, value Value) // 回掉函数
+	OnEvicted func(key string, value Value) // 回调函数
 }
 
 type entry struct {
