@@ -2,6 +2,7 @@ package session
 
 import (
 	"database/sql"
+	"myPackage/geeorm/clause"
 	"myPackage/geeorm/dialect"
 	"myPackage/geeorm/log"
 	"myPackage/geeorm/schema"
@@ -14,6 +15,7 @@ type Session struct {
 	dialect  dialect.Dialect
 	refTable *schema.Schema
 	sqlVars  []interface{}
+	clause   clause.Clause
 }
 
 func New(db *sql.DB, dialect dialect.Dialect) *Session {
@@ -23,6 +25,7 @@ func New(db *sql.DB, dialect dialect.Dialect) *Session {
 func (s *Session) Clear() {
 	s.sqlVars = nil
 	s.sql.Reset()
+	s.clause = clause.Clause{}
 }
 
 func (s *Session) DB() *sql.DB {

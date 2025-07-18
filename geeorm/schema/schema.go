@@ -52,3 +52,14 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 	}
 	return schema
 }
+
+func (Schema *Schema) RecordValues(dest interface{}) []interface{} {
+	destValue := reflect.Indirect(reflect.ValueOf(dest))
+	var values []interface{}
+
+	for _, field := range Schema.Fields {
+		values = append(values, destValue.FieldByName(field.Name).Addr().Interface())
+	}
+
+	return values
+}
