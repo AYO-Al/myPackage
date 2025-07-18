@@ -1,7 +1,7 @@
 package session
 
 import (
-	"myPackage/geeorm/clause"
+	"github.com/AYO-Al/myPackage/geeorm/clause"
 	"reflect"
 )
 

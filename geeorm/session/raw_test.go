@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
+	"github.com/AYO-Al/myPackage/geeorm/dialect"
 	_ "github.com/mattn/go-sqlite3"
-	"myPackage/geeorm/dialect"
 )
 
 var (

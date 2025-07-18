@@ -1,7 +1,7 @@
 package schema
 
 import (
-	"myPackage/geeorm/dialect"
+	"github.com/AYO-Al/myPackage/geeorm/dialect"
 	"reflect"
 )
 

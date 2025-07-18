@@ -8,3 +8,4 @@ gee/templates/
 !gee/*.go
 !.gitignore
 !.md
+*.db

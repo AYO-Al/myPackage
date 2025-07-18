@@ -2,10 +2,10 @@ package session
 
 import (
 	"database/sql"
-	"myPackage/geeorm/clause"
-	"myPackage/geeorm/dialect"
-	"myPackage/geeorm/log"
-	"myPackage/geeorm/schema"
+	"github.com/AYO-Al/myPackage/geeorm/clause"
+	"github.com/AYO-Al/myPackage/geeorm/dialect"
+	"github.com/AYO-Al/myPackage/geeorm/log"
+	"github.com/AYO-Al/myPackage/geeorm/schema"
 	"strings"
 )
 

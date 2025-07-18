@@ -2,8 +2,8 @@ package session
 
 import (
 	"fmt"
-	"myPackage/geeorm/log"
-	"myPackage/geeorm/schema"
+	"github.com/AYO-Al/myPackage/geeorm/log"
+	"github.com/AYO-Al/myPackage/geeorm/schema"
 	"reflect"
 	"strings"
 )
