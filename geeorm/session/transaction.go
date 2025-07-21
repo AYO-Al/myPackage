@@ -13,7 +13,7 @@ func (s *Session) Begin() (err error) {
 }
 
 func (s *Session) Commit() (err error) {
-	log.Info("transaction begin")
+	log.Info("transaction commit")
 	if err = s.tx.Commit(); err != nil {
 		log.Error(err)
 	}
