@@ -30,7 +30,6 @@ func Parse(dest interface{}, d dialect.Dialect) *Schema {
 		Name:     modelType.Name(),
 		FieldMap: make(map[string]*Field),
 	}
-
 	for i := 0; i < modelType.NumField(); i++ {
 		field := modelType.Field(i)
 
