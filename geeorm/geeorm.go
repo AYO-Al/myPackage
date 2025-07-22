@@ -115,10 +115,16 @@ func (engine *Engine) Migrate(value interface{}) error {
 		}
 		tmp := "tmp_" + table.Name
 		fieldStr := strings.Join(table.FieldNames, ", ")
-		s.Raw(fmt.Sprintf("CREATE TABLE %s AS SELECT %s from %s;", tmp, fieldStr, table.Name))
-		s.Raw(fmt.Sprintf("DROP TABLE %s;", table.Name))
-		s.Raw(fmt.Sprintf("ALTER TABLE %s RENAME TO %s;", tmp, table.Name))
-		_, err = s.Exec()
+		// 修复：每条SQL语句单独执行
+		if _, err = s.Raw(fmt.Sprintf("CREATE TABLE %s AS SELECT %s from %s;", tmp, fieldStr, table.Name)).Exec(); err != nil {
+			return
+		}
+		if _, err = s.Raw(fmt.Sprintf("DROP TABLE %s;", table.Name)).Exec(); err != nil {
+			return
+		}
+		if _, err = s.Raw(fmt.Sprintf("ALTER TABLE %s RENAME TO %s;", tmp, table.Name)).Exec(); err != nil {
+			return
+		}
 		return
 	})
 	return err
